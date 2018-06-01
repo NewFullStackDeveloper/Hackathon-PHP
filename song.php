@@ -48,4 +48,38 @@ class Song
         // find the last inserted id and update this object's property
         $this->id = db::getConnection()->lastInsertId();
     }
+
+    public function update()
+    {
+        $query = "
+            UPDATE `song_table`
+            SET `name`=?,
+            `link`=?,
+            `description`=?,
+            `date`=?
+            
+       WHERE `id`=? ";
+        $values = [
+
+            $this->name,
+            $this->link,
+            $this->description,
+            $this->date,
+            $this->id
+
+        ];
+        db::query($query, $values);
+        
+        
+
+    }
+
+    public function save(){
+
+        if($this->id){
+            $this->update();
+        }else{
+            $this->insert();
+        }
+    }
 }

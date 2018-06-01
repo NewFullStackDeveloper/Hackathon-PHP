@@ -20,8 +20,11 @@ if ($_POST){
     $song->description=$_POST['description'];
     $song->link=$_POST['link'];
     $song->date=date('Y-m-d');
-    $song->insert();
+    $song->save();
 }
+
+var_dump($song);
+
 ?>
 
 
@@ -34,10 +37,10 @@ if ($_POST){
         
           <form action="" method="post">
 
-                name<input type="text" name="name">
-            description<input type="text" name="description">
+                name<input type="text" name="name" value="<?php echo $song->name ?>">
+            description<input type="text" name="description" value="<?php echo $song->description ?>">
 
-            link<input type="text" name="link">
+            link<input type="text" name="link" value="<?php echo $song->link ?>">
             <!-- genres<select name="genres"> -->
                <!--  <option> Alternative</option>
                 <option> Anime</option>
