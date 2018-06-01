@@ -13,6 +13,17 @@ class Song
     public $link = null;
     //public $genre = null;
     public $date = null;
+
+    public static function selectAll(){
+        $query = "
+        SELECT *
+        FROM `song_table`
+    ";
+    $statement= db::query($query);
+    $statement->setFetchMode(\PDO::FETCH_CLASS, Song::class);
+    return $statement->fetchAll();
+    }
+
     public static function find($id){
         $query="
             SELECT *
@@ -44,9 +55,22 @@ class Song
         ];
         db::query($query, $values);
         
-        
+
         // find the last inserted id and update this object's property
         $this->id = db::getConnection()->lastInsertId();
+    }
+
+    public function delete(){
+        $query = "
+        DELETE 
+        FROM `song_table`
+        WHERE id= ?";
+
+        $values=[
+            $this->id
+        ];
+
+        db::query($query, $values);
     }
 
     public function update()
